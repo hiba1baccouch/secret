@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOBYOB's Birthday Letters & Mystery Jar ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        /* Background image container - ready for user's image */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.3;
+            z-index: -1;
+            transition: all 0.6s ease;
+            filter: blur(1px);
+        }
+
+        body:hover::before {
+            opacity: 0.8;
+            filter: blur(0px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 50% 0%; }
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-bottom: 50px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            font-weight: 600;
+        }
+
+        .letters-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .letter {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(118, 75, 162, 0.4) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .letter:hover::before {
+            opacity: 1;
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .letter:hover {
+            transform: scale(1.1) rotateY(8deg) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .letter-icon {
+            width: 60px;
+            height: 60px;
+            background-image: url('image-removebg-preview (7).png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 10px;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .letter-number {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        .pizza-section {
+            text-align: center;
+        }
+
+        .wish-instructions {
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .wish-instructions p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .wish-instructions p:last-child {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .pizza-container {
+            width: 300px;
+            height: 300px;
+            background-image: url('pizza-3d.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 4px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+
+        .pizza-container:hover {
+            transform: scale(1.1) rotateY(10deg);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.2)) brightness(1.05);
+        }
+
+        .candle {
+            position: absolute;
+            width: 10px;
+            height: 130px;
+            background: linear-gradient(to bottom, #f8d42c 0%, #e6c200 100%);
+            border-radius: 3px;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 -3px 3px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .candle::before {
+            content: "🔥";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.4rem;
+            color: #ff6b35;
+            text-shadow: 0 0 8px #ff6b35, 0 0 15px #ffcc00, 0 0 20px #ffcc00;
+            animation: flicker 0.8s infinite alternate;
+            filter: drop-shadow(0 0 5px rgba(255, 107, 53, 0.5));
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; transform: translateX(-50%) scaleY(1) rotate(-2deg); }
+            25% { opacity: 0.9; transform: translateX(-50%) scaleY(1.05) rotate(1deg); }
+            50% { opacity: 0.8; transform: translateX(-50%) scaleY(1.1) rotate(-1deg); }
+            75% { opacity: 0.95; transform: translateX(-50%) scaleY(1.02) rotate(2deg); }
+            100% { opacity: 1; transform: translateX(-50%) scaleY(1) rotate(-2deg); }
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+            margin-top: 20px;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .mystery-jar {
+            text-align: center;
+        }
+
+        .jar {
+            width: 280px;
+            height: 360px;
+            background-image: url("jar-illustration.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto 25px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.3)) 
+                    drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
+            overflow: visible;
+        }
+
+        .jar:hover {
+            transform: scale(1.1) rotateY(12deg) rotateX(5deg);
+            filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.4)) 
+                    drop-shadow(0 0 50px rgba(139, 92, 246, 0.5))
+                    brightness(1.1);
+        }
+
+        .jar-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .jar-description {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            position: relative;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateY(-50px) scale(0.9); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0) scale(1); 
+                opacity: 1; 
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2) rotate(90deg);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: #fff;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #f0f0f0;
+            margin-bottom: 25px;
+            text-align: justify;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-source {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            font-style: italic;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .sparkles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: sparkleAnimation 2.5s ease-out forwards;
+        }
+
+        @keyframes sparkleAnimation {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(360deg);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            opacity: 0.9;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .letters-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .letters-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .jar, .pizza-container {
+                width: 110px;
+                height: 130px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .letters-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Happy 25th Birthday</h1>
+            <p class="subtitle">✨ My pretty little YOBYOB <3✨</p>
+            <p>I wish you all the happiness and joy of the world!</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Pizza Section - First -->
+            <div class="section">
+                <h2 class="section-title">🍕 Make a Wish! 🍕</h2>
+                <div class="pizza-section">
+                    <div class="wish-instructions">
+                        <p>Click the pizza candle to make your wish.</p>
+                        <p>But sorry, you can't wish for me to shut up.</p>
+                        <p><strong>That's permanent.</strong></p>
+                    </div>
+                    <div class="pizza-container" onclick="openPizza()">
+                        <div class="candle"></div>
+                    </div>
+                    <button class="continue-btn" onclick="scrollToLetters()">
+                        Continue to Letters 💖✉️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Letters Section - Second -->
+            <div class="section">
+                <h2 class="section-title">💖 25 Birthday Letters 💖</h2>
+                <div class="letters-grid" id="lettersGrid">
+                    <!-- Letters will be generated by JavaScript -->
+                </div>
+                <p style="text-align: center; opacity: 0.8; font-size: 0.9rem;">Click any letter to read a special message</p>
+            </div>
+
+            <!-- Mystery Jar Section - Third -->
+            <div class="section">
+                <h2 class="section-title">🏺 Mystery Jar 🏺</h2>
+                <div class="mystery-jar">
+                    <div class="jar" onclick="openMysteryJar()"></div>
+                    <div class="jar-label">Mistery Time!</div>
+                    <p class="jar-description">Tap the jar to receive a random somthing ...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎉 Happy Birthday YOBYOB! 🎉</p>
+            <p>May your day be filled with joy, love, and beautiful surprises</p>
+        </div>
+    </div>
+
+    <!-- Letter Modal -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('letterModal')">&times;</button>
+            <h3 class="modal-title" id="letterTitle">Birthday Letter</h3>
+            <p class="modal-text" id="letterText"></p>
+            <p class="modal-source">💝 With love</p>
+        </div>
+    </div>
+
+    <!-- Pizza Modal -->
+    <div id="pizzaModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('pizzaModal')">&times;</button>
+            <h3 class="modal-title">🍕 Birthday Pizza</h3>
+            <p class="modal-text" id="pizzaText"></p>
+            <p class="modal-source">🎂 Birthday wishes</p>
+        </div>
+    </div>
+
+    <!-- Mystery Jar Modal -->
+    <div id="jarModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('jarModal')">&times;</button>
+            <h3 class="modal-title">✨ Wisdom from the Jar</h3>
+            <p class="modal-text" id="jarText"></p>
+            <p class="modal-source" id="jarSource"></p>
+        </div>
+    </div>
+
+    <div class="sparkles" id="sparkles"></div>
+
+    <script>
+        // Original 25 Birthday Letters
+        const letters = [
+            'I still remember that night at the Twisenight challenge — not because it was magical or emotional or whatever, but because it was absolutely unhinged.You showed up with black wet socks like it was the peak of fashion, and I was just trying to figure out poker for the first time without embarrassing myself completely (failed). Then there was the choke incident (do not ask), the random mlewi mission, and my personal highlight: me oversharing like it was a TED Talk at 2AM. Honestly, who let me speak?Somehow, you did not vanish mid-conversation, which was surprising. You just rolled with the chaos. Then you walked me to the station the next morning like it was no big deal. I remember thinking, "Welp, that was weirdly fun — probably will not see him again."But turns out the universe was not done making things weird.',
+            'The second time we met was at the Digital Minds hackathon — honestly, the best decision Zied has made since birth might be inviting me.We clicked like old teammates in a video game lobby. Hours outside in the cold talking nonsense, me slowly losing my voice like I was narrating a tragic drama, and you? You spent the entire next week mocking me for it like it was your full-time job.We went out one day and I remember trying so hard to act calm. I think I gave off "mysterious stranger" vibes, but deep down I was just trying not to say anything weird (again: failed).After the hackathon, we played el makina and I am not even sorry for every time I made you lose. I actually celebrated it. Quietly. Internally. Because, as established: I love and hate you. Equally. Like chips and slow Wi-Fi.',
+            'That one legendary night with your beloved SISI™ was a full-on turning point. Something in the universe shifted — or maybe it was just my brain going "hmmm." I suddenly found myself analyzing you. Trusting you. Oversharing like a broken faucet. You were disgustingly cute and weirdly caring — like a total sweetheart I pretend to hate (but do not actually hate, unfortunately).Thank you for listening. For caring. For sitting there like a calm little storm while I dumped my traumas like a Netflix special.That night, I stole your ring — which I still regret not keeping in a glass box marked "emotional artifact." I saw your delightfully chaotic room. You saw me crying for the first time... and obviously, you laughed at my face. Rude, but expected.I was teaching you how to make eye contact like I was running a TED talk in your bedroom. But honestly? I was just happy to finally be around you, being fully myself. It was wild. It was pure. It was, dare I say… nice?Next day: Novation City, then Mahdia. I still could not believe you actually came with me. You met Fatma. You were a total sweetheart. Again. (Can you not??)Anyway. That was the moment I decided to haunt you for the rest of your life.You are welcome.', 
+            'You told me you could not come to my PEEMO speech — made a whole scene about it. And yet… you showed up. Plot twist of the year.That was also the first time we had pizza together (a moment that deserves a national holiday, obviously). Then came the birds, the rain, and your stories archive casually exposing your shirtless moment. No comment. Okay fine, one comment: not bad.We ended up talking a lot that day — like actual human beings. You even opened up about that dramatic unboxing. Then we fought (as always) while the rain tried to drown the coffee shop and our voices. Still, I remember thinking: you are kind of a great human. Surprisingly sweet. Suspiciously soft. Slightly chaotic. And, undeniably, a 24-year-old pretty baby with the ego of a rockstar and the heart of a cartoon bunny.Anyway. Fun day. 10/10 would fight in the rain with you again', 
+            'I still remember when I kidnapped you and we ended up spending the night at Ammou Nacer s office — still not sure how we survived that couch. I ruined your face (sorry again) and gave you the unicorn as a peace offering. Fair, right?You spent the night watching Breaking Bad, totally focused, like you were not eating in pizza and petty arguments. We even managed to fight on the beach — classic us. But still, I felt really calm and weirdly safe next to you. You were warm and soft and way too comfy, I almost claimed you as my forever pillow.Then came the metro ride — we passed out like toddlers after daycare. You wore my jacket that day. You looked so cute it was borderline unfair.It was one of those random nights I wll always remember. Just happy to have been there with you.',
+            'I still remember that one random day when you decided to just show up like a ghost NPC dropping into my scene without warning. I was literally working, brain fried, probably looking like a mess, and suddenly—boom—you are in my face. My heart dropped… and no, not from stress this time. From surprise… and maybe a bit of joy (just a bit, do not let it get to your head).You took me by the hand (figuratively, calm down) and dragged me on an impromptu exploration of ISIMA. We walked forever — I swear my legs filed a complaint after that — but somehow, I did not care. You were talking crap half the time, I was pretending to listen, and it was still weirdly… nice.We ended up getting pizza (of course we did), and between the bites and the endless convos about everything and nothing, I weirdly felt like time just paused. It was one of those nights where things felt simple, like the world forgot to be loud and annoying for a bit.Also… yes, I proposed to you that night. And yes, you said yes. You can not deny it, the moment is engraved in my phone  storage. You are technically engaged now. To me. Deal with it. 🎉One more thing — you really need to stop being that cute when you eat and suddenly start laughing for no reason. Like?? Who gave you the right to be that weirdly adorable?Anyway… that night was a 10/10. But do not get cocky about it.', 
+            'I still remember the ideathon in Ramadan — the vibes were kind of unmatched. We had dinner together like two underpaid CEOs of nonsense, and you somehow looked like a full 10 wearing my hoodie (rude, but I will allow it).The food slapped. The sunset made everything feel cinematic. And you… well, you added your usual dose of cute, chaotic bullshit that somehow made it even better.Now, listen — I do npt know what kind of emotionally unstable genius names his hackathon team "Yamate Kudassai"… oh wait. It is you. Honestly, you should be banned from naming things, but I digress.What really stuck with me, though, is how you stayed by my side when I lost my job the very next morning. You did not have to — but you did. You wiped my tears with your words, distracted me with dumb jokes, made me feel lighter. Like the world was not ending.That day, I saw it again — how much of a lowkey sweetheart you are. You gave me your validation like it was the highest award ever, and we ended up spending hours talking in that little parc before it was time to go.So yeah. Thank you for being there. For real. That day meant more than you know.',
+            'That INSAT day... iconic, weird, hilarious, slightly traumatic — basically, us.First of all, I met your mom for the first time and instantly became the shyest creature alive. You, of course, did not waste a single second before clowning me about it. As emotional compensation for that public bullying, I stole your red hoodie and wore it like a badge of honor (nenene 😌).That night, you had me completely wrapped. You weaponized my own hormones against me — rude. You kept scaring me like it was your full-time job: dark classrooms, weird bathrooms, sudden jump scares. And somehow I kept following you around like it was an actual haunted amusement park. Maybe I am the clown here.Also yes, I heard your heartbeats that night — do not deny it, I know what I heard. Maybe you were scared too? Or maybe you are just a softie pretending to be evil.We ran around taking pictures like tomorrow did not exist. You posed like you were on the cover of Vogue: Academic Chaos Edition. I made you so tired and I am extremely proud of that.Honestly, it was one of those days I will never forget — messy, random, and full of that strange warmth that somehow only exists when you are around.', 
+            'If I ever graduate, I am giving you 30% of the diploma — because honestly, you earned it.You have always been there to rescue me throughout the PFE chaos — from the hardware disasters to the software meltdowns… and the emotional rollercoasters in between. You were like my own chaotic tech support hotline mixed with emotional damage control.I still remember the day before INSAT Night — you came through like a legend with the SD card. A literal lifesaver. Then, like a spoiled little cat, you spent half the journey asleep, curled up like a pretty baby while I sat there wide awake, watching your peaceful little face.We had food, we chatted, and I really enjoyed that night. You were calm. I was calm. It was one of those rare in-between moments that just felt good.And of course, because you are you, I passed out like a log in the 716 — and instead of letting me sleep in peace, you obviously took pictures of me. So rude. So on-brand. So you.Anyway, thanks for being there — again and again and again. Youare annoying and I love-hate you for it. But you always show up, and that counts more than you know.',
+            'There was a day — completely random, nothing special about it — when your words caught me off guard. You told me I was too much. That sometimes I was hard to handle.And for a moment, I believed you. I wondered if I was annoying, if I took up too much space, if I overwhelmed you without realizing it. My heart felt a little smaller that day, like I had to shrink myself just to stay close.But then the next day came.And you, being you, showed up like nothing happened.You laughed, you teased, you looked at me like I hadnt just replayed those words in my head all night.We ended up spending that evening sabotaging Mystery Night together — chaotic as always. I still do not understand how we did not win. But in hindsight, I think we were too busy making it  ping pong night, and I got to see you wearing that mask — which honestly suited you way too well. Mysterious, a little dramatic, but still soft around the edges.That night couldve gone so many ways, but I am glad it went the way it did. I still do not know how you manage to fix what you break without even noticing. But maybe that is part of what makes all this so human. So real.Thanks for showing up.Again.',
+            'I still remember that random day we went to Monastir — and how I wasted hours of your life attending an event that, in the end, added nothing to mine (except maybe a lesson in what not to do).But luckily, I had you, Zied, and Bedda around, which made it all worth it.That day, I felt like I belonged somewhere again. It is a quiet feeling, but when it is real, you never forget it.You bought me candy — simple gesture, huge effect. You have no idea how happy it made me.Then came the laser game, where you clearly enjoyed killing me every chance you got. I will admit it — you were good. A little too good.And I will never forget that moment when we were on a mission to boost our scores, just vibing and scheming — and then Zied caught us.You? Blushing. Actually shy. Like, genuinely.It was adorable. Shocking. And deeply satisfying.So maybe the event itself was a flop. But that day?That day was a core memory.Thank you for that.', 
+            'Thank you.Thank you for doing everything you could to make me sleep peacefully during the storm that was my PFE period. For calling me — sometimes with a reason, sometimes just because — and always staying on the line when I needed to vent, even when I was talking pure nonsense.Thank you for encouraging me, for being by my side, for carrying some of the weight I could not say out loud.Thank you for the necklace — I swear I will keep it forever.For the headband, the flower, the little gifts, the hoodie that still smells like you (yes, I sniffed it like a total psycho before bed — sue me), just so I could remember you and maybe, if I was lucky, dream about you.Thank you for the moments.For your words.For your presence.For the few hugs you offered me like limited-edition items I had to earn.You are a cute little Ayoub — annoyingly cute.And I love you. And I hate you.So much.(But mostly love, do not let it get to your head.)', 
+            'I still remember that night like a random dream I never expected to come true.You surprised me — again.You came to Mahdia on the same train as me, and somehow I missed you, like always. I thought I was imagining it when you showed up. I was over the moon — literally — and somehow, I was not scared of it this time.You were so calm, so innocent that night. We walked a lot after eating, under that big shining moon I usually avoid. But with you, I felt okay. Like walking next to you canceled out the things I fear. Of course, I kept talking nonstop and filled your head with my usual nonsense — and, as always, thank you for listening like it made sense.That same morning, I was in your city — and we accidentally matched outfits.Clearly, the curse started working.You are becoming me.Or maybe I am the one shape-shifting into you. Who knows.You were quiet that day, focused, almost shocked when you witnessed the chaotic girl version of Minovs revenge live. I was observing you while you worked in silence — you looked cute.(But do not get used to hearing that.)', 
+            'You really confuse me sometimes. How do you manage to look both chaotic and weirdly photogenic at the same time?The bike ride? Iconic. You trying to teach me how to ride like a normal person while I was out there fighting for my life was cinematic. You definitely laughed more than you helped, but I will allow it.And yes, you did somehow pull off my white shirt. Not fair, honestly.That night we tried to survive the PFE work marathon for the PEP booth — it was messy, but we actually got stuff done (miracle). Shoutout to us.Then at the hotel the next day, you fully committed to the undercover mafia look with those glasses and that all-black outfit. If someone told me you were plotting to take over something, I wouldve believed them.Also, I saw my photo in your story, whicho nly me and Salsa saw it, and thatis hilarious. Still one of my best unplanned photos, not gonna lie.',
+            'I genuinely loved every second you spent helping me figure out what to wear for graduation. I know you did not sign up to be a personal stylist, but you kind of nailed it.You put real effort into helping me choose something that actually suits me — and lets not forget your very honest feedback.  You have got taste (do not let it go to your head though).Also: denim on denim? Surprisingly works. Respect.But I am warning you now — I am still going to live in jeans and hoodies, even if that makes me look like a lost 10-year-old. Comfort over fashion forever. Sorry not sorry.Thanks for being my fashion advisor and my accidental hype team that day.', 
+            'Thank you for coding my graduation app like an actual legend — saving the whole ship from sinking more than once.Thank you for fixing my report when I was this close to throwing my laptop out the window.Thank you for making sure I rested (even when I did not want to) and for constantly reminding me to eat like a human being during that whole stressful mess.You did not have to, but you showed up anyway. Every single time.In that period of my life, you were the friend, the big brother, the grumpy dad, the chill co-pilot — all in one. I saw peace and comfort in you when I was all chaos and deadlines.You havve been my walking charger and support hotline, and I hope you know how much that meant to me.Even if I did not always say it out loud, I noticed. I appreciated it. Deeply.Thanks for having my back.', 
+            'I will always remember how you trusted me enough to let me test my project on your car — it might not seem like much, but to me it was a big deal. I had fun just being next to you, even if you never missed a chance to make fun of me. Classic.But let me tell you something clearly — I never, not for one second, planned to use you. I did not "take advantage." I appreciate everything you did — from the tiniest gestures to the biggest efforts. Even if it was not your responsibility, you made me happy so many times. That matters to me more than you know.',
+            'You probably do not realize how good of a person you are. Truly. You always act like it is normal, like it is no big deal. But I have seen how you give, how you show up, how you care without asking anything back. That is rare.And sure, I do not know everything about your life. Maybe I missed some parts that hurt you, some parts you never shared. But I just want you to hear this: You are a great person. You have a good heart. And your personality? Chaotic, funny, caring, thoughtful. One of a kind.',
+            'Something that is always stuck with me — and probably one of the first things that drew me closer — is how deeply grounded you are in your beliefs. Your religion is not a performance. It is something you carry with quiet strength.And somehow, seeing how you try to balance everything — faith, studies, people, emotions — makes me proud of you. Honestly. You are doing amazing, even if you do not always feel it.',
+            'Yep, embarrassing but true. Baby Yobyob. I wish you a life full of softness and laughter and all the weird little joys you enjoy (except weird snacks, keep those to yourself).And listen — I know I will not be in your life forever. That is just how things work. But while I am still around, while I still get to see your face from time to time and send you absurd messages… I just want to make it even slightly better.',
+            'I love you and I hate you. In equal measure. You are the kind of person who makes others feel things — and that is a gift. It is annoying, but a gift.Thank you for being real. For being weird. For being annoying in ways that made me laugh. For showing me a version of you that you did not fake.',
+            'Take care of yourself. That is not a casual thing to say — I mean it deeply. Eat right. Sleep more. Be kinder to your body, and your mind too. Do not bottle things up. And please, please know your worth. Because I saw it even when you did not.You are loved. Maybe not always the way you expect, maybe not always loudly — but you are.',
+            'The truth is, I am lucky. Lucky to have crossed paths with someone like you. To have shared sleepless nights, chaotic events, deep conversations, trash food, calm moments, and real connection.You annoyed me. You comforted me. You challenged me. You inspired me.And even if this is where the road splits… I will remember. And I will always be grateful.',
+            'Take care of yourself. That is not just a thing people say — I really mean it. Eat like a normal human, sleep without guilt, be kind to your body and to your head. You spend so much time helping others that sometimes you forget you matter just as much.I hope you remember that you are enough. Even on your messiest days, your most tired days, your most confused days — you are enough. You are loved, maybe not always the way you imagine, but in quiet ways that stay for a long time.I will never forget my last night before graduation — everything was collapsing around me. I was panicking, nauseous, exhausted, and you were right there. Sleepy eyes. Baby face. A human version of "home."You listened to me rehearse, you fixed my slides like a champ, you met my family (they adore you btw), and you stayed by my side the whole day like I was someone important. That meant the world.Thank you for that night.Thank you for the memories.Thank you for the hello kitty lighter.Thank you for the pictures.And above all — thank you for listening to me talk about the most traumatic event in my life without judgment. You did not flinch. You did not run. That mattered more than I can say.Also? You look really good with short hair. Just saying.Even if life takes us in different directions, I want you to know I am deeply grateful for every chaotic, sweet, painful, and beautiful moment. You made a mark. You helped me grow.I love you and I hate you. You will always be that person who made life a little more complicated and a lot more meaningful.So thank you. For everything.'
+            , 'So here we are — letter twenty-five.Who would’ve thought I’d find this much to say? I don’t usually open up like this (you know that), but somehow, with you, the words kept showing up.Maybe because you were there — constantly, unexpectedly, stubbornly. In small moments and big ones. In silence and in nonsense.You made me laugh when I wanted to cry. You made me feel like I wasn’t carrying the world alone. That’s rare. That’s… something.These letters aren’t poetry. They’re not perfect. They’re just pieces of me that you helped unlock. Memories that I wanted to put somewhere safe before they get blurry.I don’t know what happens next. Maybe we’ll keep walking beside each other for a while. Maybe we’ll drift a little. Maybe we’ll both become versions of ourselves we don’t yet recognize. That’s okay.Just know this: I’m thankful I met you. I’m thankful you stayed. I’m thankful you cared, even when it wasn’t your job.And I hope — wherever life takes you — you stay soft, you stay kind, and you keep being this beautifully weird mix of logic and chaos that only you can pull off.Also… if someday you find a random hoodie that smells like me, congrats: the curse worked.This isn’t goodbye. It’s just... the end of a very long letter. And maybe the start of a new one.Take care, pretty boy.'
+        ];
+
+        // Pizza interactions
+        const pizzaMessages = [
+            "🕯️ You blew out the candle! Your birthday wish is floating up to the stars. May all your dreams come true this year! ✨",
+            "🔪 Pizza sliced! Each piece represents a month of joy, laughter, and amazing memories ahead. Enjoy every bite of life! 🍕"
+        ];
+
+        // Mystery Jar Quotes - Supportive Messages for a 25-Year-Old
+        const mysteryQuotes = [
+            {
+                text: "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
+                source: "القرآن الكريم - سورة الطلاق ٣"
+            },
+            {
+                text: "إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",
+                source: "القرآن الكريم - سورة البقرة ١٥٣"
+            },
+            {
+                text: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا • إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+                source: "القرآن الكريم - سورة الشرح ٥-٦"
+            },
+            {
+                text: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا • وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ",
+                source: "القرآن الكريم - سورة الطلاق ٢-٣"
+            },
+            {
+                text: "إِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ",
+                source: "القرآن الكريم - سورة التوبة ١٢٠"
+            },
+            {
+                text: "وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ۖ إِنَّهُ لَا يَيْأَسُ مِن رَّوْحِ اللَّهِ إِلَّا الْقَوْمُ الْكَافِرُونَ",
+                source: "القرآن الكريم - سورة يوسف ٨٧"
+            },
+            {
+                text: "إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+                source: "القرآن الكريم - سورة البقرة ٢٠"
+            },
+            {
+                text: "وَاللَّهُ غَالِبٌ عَلَىٰ أَمْرِهِ وَلَٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ",
+                source: "القرآن الكريم - سورة يوسف ٢١"
+            },
+            {
+                text: "إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ",
+                source: "القرآن الكريم - سورة آل عمران ٩"
+            },
+            {
+                text: "وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ",
+                source: "القرآن الكريم - سورة هود ٨٨"
+            },
+            {
+                text: "You are braver than you believe, stronger than you seem, and smarter than you think.",
+                source: "A.A. Milne - Winnie the Pooh"
+            },
+            {
+                text: "The future belongs to those who believe in the beauty of their dreams.",
+                source: "Eleanor Roosevelt"
+            },
+            {
+                text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+                source: "Winston Churchill"
+            },
+            {
+                text: "Believe you can and you're halfway there.",
+                source: "Theodore Roosevelt"
+            },
+            {
+                text: "The only way to do great work is to love what you do.",
+                source: "Steve Jobs"
+            },
+            {
+                text: "Your time is limited, don't waste it living someone else's life.",
+                source: "Steve Jobs"
+            },
+            {
+                text: "The best way to predict the future is to create it.",
+                source: "Peter Drucker"
+            },
+            {
+                text: "Don't watch the clock; do what it does. Keep going.",
+                source: "Sam Levenson"
+            },
+            {
+                text: "The journey of a thousand miles begins with one step.",
+                source: "Lao Tzu"
+            },
+            {
+                text: "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+                source: "Zig Ziglar"
+            },
+            {
+                text: "The man who has no imagination has no wings.",
+                source: "Muhammad Ali"
+            },
+            {
+                text: "It always seems impossible until it's done.",
+                source: "Nelson Mandela"
+            },
+            {
+                text: "You miss 100% of the shots you don't take.",
+                source: "Wayne Gretzky"
+            },
+            {
+                text: "The only person you are destined to become is the person you decide to be.",
+                source: "Ralph Waldo Emerson"
+            },
+            {
+                text: "Life is what happens when you're busy making other plans.",
+                source: "John Lennon"
+            },
+            {
+                text: "Twenty-five is the perfect age. You're old enough to know better, young enough to do it anyway.",
+                source: "Life Wisdom"
+            }
+        ];
+
+        // Generate letters grid
+        function generateLetters() {
+            const lettersGrid = document.getElementById('lettersGrid');
+            lettersGrid.innerHTML = '';
+            
+            for (let i = 0; i < 25; i++) {
+                const letter = document.createElement('div');
+                letter.className = 'letter';
+                letter.innerHTML = `
+                    <span class="letter-icon"></span>
+                    <div class="letter-number">${i + 1}</div>
+                `;
+                letter.onclick = () => openLetter(i + 1);
+                lettersGrid.appendChild(letter);
+            }
+        }
+
+        function openLetter(letterNumber) {
+            createSparkles();
+            const modal = document.getElementById('letterModal');
+            const title = document.getElementById('letterTitle');
+            const text = document.getElementById('letterText');
+            
+            title.textContent = `Letter ${letterNumber}`;
+            text.textContent = letters[letterNumber - 1];
+            
+            modal.classList.add('active');
+        }
+
+        function openPizza() {
+            createSparkles();
+            const modal = document.getElementById('pizzaModal');
+            const text = document.getElementById('pizzaText');
+            
+            text.textContent = "🍕 Happy Birthday! Here's your special birthday pizza! Make a wish and blow out the candle, or slice it up to share the joy with everyone around you. Each bite is filled with love and birthday magic! 🎂✨";
+            
+            modal.classList.add('active');
+        }
+
+        function blowCandle() {
+            const candle = document.querySelector(".candle");
+            if (candle) {
+                candle.style.display = "none";
+            }
+            createSparkles();
+            const modal = document.getElementById("pizzaModal");
+            const text = document.getElementById("pizzaText");
+            
+            text.textContent = pizzaMessages[0];
+            modal.classList.add("active");
+        }
+
+        function scrollToLetters() {
+            const lettersSection = document.querySelector('.section:nth-child(2)');
+            lettersSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openMysteryJar() {
+            createSparkles();
+            const modal = document.getElementById('jarModal');
+            const text = document.getElementById('jarText');
+            const source = document.getElementById('jarSource');
+            
+            const randomQuote = mysteryQuotes[Math.floor(Math.random() * mysteryQuotes.length)];
+            text.textContent = randomQuote.text;
+            source.textContent = `— ${randomQuote.source}`;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+        }
+
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = ['✨', '🌟', '💫', '⭐'][Math.floor(Math.random() * 4)];
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                
+                sparklesContainer.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2500);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', function() {
+            generateLetters();
+            setTimeout(createSparkles, 1000);
+            setInterval(createSparkles, 15000);
+        });
+    </script>
+</body>
+</html>
+
