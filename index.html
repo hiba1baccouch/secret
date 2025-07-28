@@ -21,6 +21,8 @@
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         /* Background image container - ready for user's image */
@@ -45,6 +47,14 @@
         body:hover::before {
             opacity: 0.8;
             filter: blur(0px);
+        }
+
+        /* Mobile-specific background adjustments */
+        @media (max-width: 768px) {
+            body::before {
+                background-attachment: scroll;
+                background-position: center center;
+            }
         }
 
         .container {
@@ -418,6 +428,7 @@
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
             animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-overflow-scrolling: touch;
         }
 
         @keyframes slideIn {
@@ -480,6 +491,23 @@
             font-style: italic;
             text-align: center;
             font-weight: 500;
+        }
+
+        .present-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .present-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .present-image-container img:hover {
+            transform: scale(1.02);
         }
 
         .sparkles {
@@ -604,6 +632,7 @@
                 padding: 25px;
                 max-width: 90%;
                 max-height: 85vh;
+                margin: 20px;
             }
             
             .modal-title {
@@ -614,6 +643,12 @@
             .modal-text {
                 font-size: 0.95rem;
                 line-height: 1.6;
+            }
+            
+            .present-image-container img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
             }
         }
 
@@ -703,6 +738,7 @@
                 padding: 20px;
                 max-width: 95%;
                 max-height: 90vh;
+                margin: 10px;
             }
             
             .modal-title {
@@ -771,6 +807,7 @@
             
             .modal-content {
                 padding: 15px;
+                margin: 5px;
             }
             
             .modal-title {
