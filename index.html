@@ -209,7 +209,7 @@
         .letter-icon {
             width: 60px;
             height: 60px;
-            background-image: url('image-removebg-preview (7).png');
+            background-image: url('image-removebg-preview (8).png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -337,14 +337,14 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
-        .mystery-jar {
+        .present-section {
             text-align: center;
         }
 
-        .jar {
+        .present {
             width: 280px;
             height: 360px;
-            background-image: url("jar-illustration.png");
+            background-image: url("image-removebg-preview (7).png");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -359,21 +359,21 @@
             touch-action: manipulation;
         }
 
-        .jar:hover {
+        .present:hover {
             transform: scale(1.1) rotateY(12deg) rotateX(5deg);
             filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.4)) 
                     drop-shadow(0 0 50px rgba(139, 92, 246, 0.5))
                     brightness(1.1);
         }
 
-        .jar-label {
+        .present-label {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 12px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .jar-description {
+        .present-description {
             font-size: 0.85rem;
             opacity: 0.9;
             line-height: 1.5;
@@ -585,7 +585,7 @@
                 height: 200px;
             }
             
-            .jar {
+            .present {
                 width: 200px;
                 height: 250px;
             }
@@ -674,7 +674,7 @@
                 height: 150px;
             }
             
-            .jar {
+            .present {
                 width: 150px;
                 height: 190px;
             }
@@ -690,12 +690,12 @@
                 border-radius: 20px;
             }
             
-            .jar-label {
+            .present-label {
                 font-size: 1rem;
                 margin-bottom: 8px;
             }
             
-            .jar-description {
+            .present-description {
                 font-size: 0.8rem;
             }
             
@@ -764,7 +764,7 @@
                 height: 120px;
             }
             
-            .jar {
+            .present {
                 width: 120px;
                 height: 150px;
             }
@@ -819,13 +819,13 @@
                 <p style="text-align: center; opacity: 0.8; font-size: 0.9rem;">Click any letter to read a special message</p>
             </div>
 
-            <!-- Mystery Jar Section - Third -->
+            <!-- Present Section - Third -->
             <div class="section">
-                <h2 class="section-title">🏺 Mystery Jar 🏺</h2>
-                <div class="mystery-jar">
-                    <div class="jar" onclick="openMysteryJar()"></div>
-                    <div class="jar-label">Mistery Time!</div>
-                    <p class="jar-description">Tap the jar to receive a random somthing ...</p>
+                <h2 class="section-title">🎁 Special Present 🎁</h2>
+                <div class="present-section">
+                    <div class="present" onclick="openPresent()"></div>
+                    <div class="present-label">Birthday Surprise!</div>
+                    <p class="present-description">Tap the present to see your special surprise...</p>
                 </div>
             </div>
         </div>
@@ -850,19 +850,22 @@
     <div id="pizzaModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('pizzaModal')">&times;</button>
-            <h3 class="modal-title">🍕 Birthday Pizza</h3>
+            <h3 class="modal-title">Happy Birthday!</h3>
             <p class="modal-text" id="pizzaText"></p>
             <p class="modal-source">🎂 Birthday wishes</p>
         </div>
     </div>
 
-    <!-- Mystery Jar Modal -->
-    <div id="jarModal" class="modal">
+    <!-- Present Modal -->
+    <div id="presentModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('jarModal')">&times;</button>
-            <h3 class="modal-title">✨ Wisdom from the Jar</h3>
-            <p class="modal-text" id="jarText"></p>
-            <p class="modal-source" id="jarSource"></p>
+            <button class="modal-close" onclick="closeModal('presentModal')">&times;</button>
+            <h3 class="modal-title">🎁 Birthday Surprise!</h3>
+            <div class="present-image-container">
+                <img id="presentImage" src="" alt="Birthday Surprise" style="max-width: 100%; height: auto; border-radius: 15px; margin-bottom: 20px;">
+            </div>
+            <p class="modal-text" id="presentCaption"></p>
+            <p class="modal-source">You better be smiling and happy to see my face! </p>
         </div>
     </div>
 
@@ -1046,7 +1049,7 @@
             const modal = document.getElementById('pizzaModal');
             const text = document.getElementById('pizzaText');
             
-            text.textContent = "🍕 Happy Birthday! Here's your special birthday pizza! Make a wish and blow out the candle, or slice it up to share the joy with everyone around you. Each bite is filled with love and birthday magic! 🎂✨";
+            text.textContent = "🍕 Happy Birthday! Here's your special birthday pizza! Make a wish and blow out the candle, I will get you a real one when I get to see you. where each bite is filled with love and hate! 🎂✨";
             
             modal.classList.add('active');
         }
@@ -1069,15 +1072,15 @@
             lettersSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function openMysteryJar() {
+        function openPresent() {
             createSparkles();
-            const modal = document.getElementById('jarModal');
-            const text = document.getElementById('jarText');
-            const source = document.getElementById('jarSource');
+            const modal = document.getElementById('presentModal');
+            const image = document.getElementById('presentImage');
+            const caption = document.getElementById('presentCaption');
             
-            const randomQuote = mysteryQuotes[Math.floor(Math.random() * mysteryQuotes.length)];
-            text.textContent = randomQuote.text;
-            source.textContent = `— ${randomQuote.source}`;
+            // Your special birthday image
+            image.src = "me.jpg";
+            caption.textContent = "!You should be thankful to have me, i'm the best gift you can ever have honey! ILOVEANDHATEYOUSOMUCH <3";
             
             modal.classList.add('active');
         }
