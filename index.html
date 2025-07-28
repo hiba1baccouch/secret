@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>YOBYOB's Birthday Letters & Mystery Jar ✨</title>
     <style>
         * {
@@ -18,6 +18,9 @@
             overflow-x: hidden;
             color: white;
             position: relative;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         /* Background image container - ready for user's image */
@@ -170,6 +173,8 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .letter::before {
@@ -264,6 +269,8 @@
             justify-content: center;
             filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
             background-color: rgba(139, 92, 246, 0.1);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .pizza-container:hover {
@@ -320,6 +327,8 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
             margin-top: 20px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .continue-btn:hover {
@@ -346,6 +355,8 @@
             filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.3)) 
                     drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
             overflow: visible;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .jar:hover {
@@ -459,6 +470,8 @@
             margin-bottom: 25px;
             text-align: justify;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .modal-source {
@@ -479,6 +492,8 @@
             position: absolute;
             font-size: 1.5rem;
             animation: sparkleAnimation 2.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 1001;
         }
 
         @keyframes sparkleAnimation {
@@ -515,23 +530,255 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 30px 0;
+                min-height: 80vh;
+            }
+            
             .title {
                 font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            
+            .section {
+                padding: 25px;
+                border-radius: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
             }
             
             .letters-grid {
                 grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
             }
             
-            .jar, .pizza-container {
-                width: 110px;
-                height: 130px;
+            .letter {
+                padding: 12px;
+                border-radius: 12px;
+            }
+            
+            .letter-icon {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 8px;
+            }
+            
+            .letter-number {
+                font-size: 0.8rem;
+                padding: 3px 6px;
+            }
+            
+            .pizza-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .jar {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .wish-instructions p {
+                font-size: 1rem;
+                margin: 6px 0;
+            }
+            
+            .continue-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                padding: 25px;
+                max-width: 90%;
+                max-height: 85vh;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            
+            .modal-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px 0;
+                min-height: 70vh;
+            }
+            
+            .title {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+                border-radius: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
             .letters-grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .letter {
+                padding: 10px;
+                border-radius: 10px;
+            }
+            
+            .letter-icon {
+                width: 35px;
+                height: 35px;
+                margin-bottom: 6px;
+            }
+            
+            .letter-number {
+                font-size: 0.7rem;
+                padding: 2px 5px;
+            }
+            
+            .pizza-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .jar {
+                width: 150px;
+                height: 190px;
+            }
+            
+            .wish-instructions p {
+                font-size: 0.9rem;
+                margin: 5px 0;
+            }
+            
+            .continue-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                border-radius: 20px;
+            }
+            
+            .jar-label {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .jar-description {
+                font-size: 0.8rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                max-width: 95%;
+                max-height: 90vh;
+            }
+            
+            .modal-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .modal-text {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            .modal-close {
+                top: 10px;
+                right: 15px;
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .footer {
+                padding: 30px 0;
+            }
+            
+            .footer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .letters-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .letter {
+                padding: 8px;
+            }
+            
+            .letter-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .pizza-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .jar {
+                width: 120px;
+                height: 150px;
+            }
+            
+            .modal-content {
+                padding: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.1rem;
+            }
+            
+            .modal-text {
+                font-size: 0.85rem;
             }
         }
     </style>
